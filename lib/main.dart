@@ -1,125 +1,298 @@
+// Importing the necessary Flutter material package
 import 'package:flutter/material.dart';
 
 void main() {
+  // Entry point of the application, runApp function starts the app
   runApp(const MyApp());
 }
 
+// MyApp class which is the root of the application
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // MaterialApp provides the structure for the app
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Shopeasy', // Title of the application
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        primarySwatch: Colors.blue, // Primary color theme
+        scaffoldBackgroundColor: const Color(0xFFF5F5DC), // Background color
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false, // Remove debug banner
+      home: const MyHomePage(), // Set the home page
     );
   }
 }
 
+// MyHomePage class representing the home page of the app
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final TextEditingController _searchController = TextEditingController(); // Controller for search input
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  // List of categories with names and image URLs
+  List<Map<String, String>> categories = [
+    {'name': 'Electronics', 'image': 'https://tinyurl.com/5d5bwe8a'},
+    {'name': 'Clothing', 'image': 'https://tinyurl.com/2y3hc96z'},
+    {'name': 'Shoes', 'image': 'https://tinyurl.com/3b5reu78'},
+    {'name': 'Books', 'image': 'https://tinyurl.com/56ketjmw'},
+    {'name': 'Home & Kitchen', 'image': 'https://tinyurl.com/4edk89yx'},
+    {'name': 'Toys', 'image': 'https://tinyurl.com/mbdc4nt9'},
+  ];
+
+  List<Map<String, String>> displayedCategories = []; // List of categories to display
+
+  @override
+  void initState() {
+    super.initState();
+    displayedCategories = List.from(categories); // Initialize displayed categories
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+        title: const Text('Shopeasy'), // Title of the app bar
+        actions: <Widget>[
+          // Search bar
+          Container(
+            width: 200,
+            child: TextField(
+              controller: _searchController,
+              decoration: const InputDecoration(
+                hintText: 'Search Categories...',
+                border: InputBorder.none,
+                icon: Icon(Icons.search),
+              ),
+              onChanged: _filterCategories, // Filter categories as the user types
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          IconButton(
+            icon: const Icon(Icons.person), // Profile icon
+            onPressed: () {
+              // Navigate to profile screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfileScreen(),
+                ),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.shopping_cart), // Cart icon
+            onPressed: () {
+              // Navigate to cart screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CartScreen(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+      // GridView to display categories
+      body: GridView.builder(
+        padding: const EdgeInsets.all(10.0), // Padding for the grid
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, // Number of columns in the grid
+          crossAxisSpacing: 10.0, // Spacing between columns
+          mainAxisSpacing: 10.0, // Spacing between rows
+          childAspectRatio: 1.0, // Aspect ratio of each tile (width / height)
+        ),
+        itemCount: displayedCategories.length, // Number of items in the grid
+        itemBuilder: (BuildContext context, int index) {
+          // GestureDetector to handle taps on the category tiles
+          return GestureDetector(
+            onTap: () {
+              // Navigate to category screen with the selected category
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CategoriesScreen(category: displayedCategories[index]['name']!),
+                ),
+              );
+            },
+            child: Card(
+              elevation: 3.0, // Elevation of the card
+              child: Column(
+                children: [
+                  Expanded(
+                    // Display category image
+                    child: Image.network(
+                      displayedCategories[index]['image']!,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0), // Padding around the text
+                    child: Text(
+                      displayedCategories[index]['name']!, // Display category name
+                      style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // Function to filter categories based on search input
+  void _filterCategories(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        displayedCategories = List.from(categories);
+      });
+      return;
+    }
+    final filtered = categories.where((category) {
+      final categoryName = category['name']!.toLowerCase();
+      final searchLower = query.toLowerCase();
+      return categoryName.contains(searchLower);
+    }).toList();
+
+    setState(() {
+      displayedCategories = filtered;
+    });
+  }
+}
+
+// Screen to display the products of a specific category
+class CategoriesScreen extends StatelessWidget {
+  final String category;
+
+  const CategoriesScreen({Key? key, required this.category}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // Dummy list of products with details
+    List<Map<String, String>> products = [
+      {'name': 'Product 1', 'price': '\$100', 'stock': 'In Stock', 'description': 'Description 1'},
+      {'name': 'Product 2', 'price': '\$150', 'stock': 'In Stock', 'description': 'Description 2'},
+      {'name': 'Product 3', 'price': '\$200', 'stock': 'Out of Stock', 'description': 'Description 3'},
+      {'name': 'Product 4', 'price': '\$250', 'stock': 'In Stock', 'description': 'Description 4'},
+      {'name': 'Product 5', 'price': '\$300', 'stock': 'In Stock', 'description': 'Description 5'},
+    ];
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(category), // Title of the app bar
+        centerTitle: true, // Center the title
+      ),
+      // GridView to display products
+      body: GridView.builder(
+        padding: const EdgeInsets.all(10.0), // Padding for the grid
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, // Number of columns in the grid
+          crossAxisSpacing: 10.0, // Spacing between columns
+          mainAxisSpacing: 10.0, // Spacing between rows
+          childAspectRatio: 1.0, // Aspect ratio of each tile (width / height)
+        ),
+        itemCount: products.length, // Number of items in the grid
+        itemBuilder: (BuildContext context, int index) {
+          // GestureDetector to handle taps on the product tiles
+          return GestureDetector(
+            onTap: () {
+              // Add the product to the cart
+              _addToCart(context, products[index]);
+            },
+            child: Card(
+              elevation: 3.0, // Elevation of the card
+              child: Padding(
+                padding: const EdgeInsets.all(8.0), // Padding around the text
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center, // Center the content
+                  children: [
+                    Text(
+                      products[index]['name']!, // Display product name
+                      style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      products[index]['price']!, // Display product price
+                      style: const TextStyle(fontSize: 16.0),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      products[index]['stock']!, // Display product stock status
+                      style: const TextStyle(fontSize: 14.0, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // Function to add the product to the cart
+  void _addToCart(BuildContext context, Map<String, String> product) {
+    // Implement logic to add the product to the cart
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Item Added to Cart'), // Alert dialog title
+          content: Text('${product['name']} has been added to your cart.'), // Alert dialog content
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('OK'), // OK button
             ),
           ],
-        ),
+        );
+      },
+    );
+  }
+}
+
+// Dummy ProfileScreen class to represent the user profile
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Profile'), // Title of the app bar
+        centerTitle: true, // Center the title
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: const Center(
+        child: Text('User Profile Screen'), // Text content of the profile screen
+      ),
+    );
+  }
+}
+
+// Dummy CartScreen class to represent the shopping cart
+class CartScreen extends StatelessWidget {
+  const CartScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Cart'), // Title of the app bar
+        centerTitle: true, // Center the title
+      ),
+      body: const Center(
+        child: Text('your Cart'), // Text content of the shopping cart screen
+      ),
     );
   }
 }
