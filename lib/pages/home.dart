@@ -33,7 +33,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Color(0xfff2f2f2),
       body: Container(
-        margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+        margin: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
             /**
              * working with text field where a user will search for a product 
              * */
-            SizedBox(height: 10.0),
+            // SizedBox(height: 10.0),
             Container(
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
@@ -167,6 +167,46 @@ class _HomeState extends State<Home> {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 children: [
+                   // SINGLE PPRODUCT
+                  Container(
+                    margin: EdgeInsets.only(right: 20.0),
+                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'assets/images/car2.png',
+                            height: 150,
+                            width: 150,
+                            fit: BoxFit.cover,
+                          ),
+                          Text(
+                            'swift car',
+                            style: AppWidget.semiboldTextFieldstyle(),
+                          ),
+                          SizedBox(width: 10.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "\$100",
+                                style: TextStyle(
+                                    color: Color(0xFFfd6f3e), fontSize: 15),
+                              ),
+                              SizedBox(width: 30.0),
+                              Container(
+                                  padding: EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                      color: Color(0xFFfd6f3e),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Icon(Icons.add, color: Colors.white)),
+                                  //END OF SINGLE PRODUCT
+                            ],
+                          )
+                        ],
+                      )),
                    // SINGLE PPRODUCT
                   Container(
                     margin: EdgeInsets.only(right: 20.0),

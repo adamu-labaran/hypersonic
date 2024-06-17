@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hypersonic/pages/home.dart';
-import 'package:hypersonic/pages/onboarding.dart';
+import 'package:hypersonic/pages/bottomnav.dart';
+import 'package:hypersonic/pages/product_detail.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,15 +11,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       title: "hypersonic🚀",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true
-      ),
-      
-      home: Home(),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true),
+      home: ProductDetail(),
     );
   }
 }
