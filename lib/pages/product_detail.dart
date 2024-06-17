@@ -51,6 +51,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 ),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,7 +68,20 @@ class _ProductDetailState extends State<ProductDetail> {
                       ],
                     ),
                     SizedBox(height: 10.0),
-                    Text('Details', style: AppWidget.semiboldTextFieldstyle(),)
+                    Text('Details', style: AppWidget.semiboldTextFieldstyle(),),
+                    SizedBox(height: 10.0),
+                    Text('description'),
+                    SizedBox(height: 90),
+                    // checking out widget
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFfd6f3e), 
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      child: Center(child: Text('Check out', style: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold))),
+                    )
                   ],
                 ),
               ),
