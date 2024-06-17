@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hypersonic/pages/singup.dart';
 import 'package:hypersonic/widget/support_widget.dart';
 
 // login page: this file handle sign in details for user
@@ -67,14 +68,23 @@ class _LogInState extends State<LogIn> {
               Row(
                 children: [
                   Text('Dont have account?', style: AppWidget.lightTextFieldStyyle(),),
-                 Text(
-                    'sign up',
-                    style: TextStyle(
-                      color: Colors.green,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w500,
+                 GestureDetector(
+                  onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignUp()),
+                      );
+
+                  },
+                   child: Text(
+                      'sign up',
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
+                 ),
                 
                 ],
               ),

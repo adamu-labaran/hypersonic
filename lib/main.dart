@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hypersonic/pages/bottomnav.dart';
 import 'package:hypersonic/pages/login.dart';
 import 'package:hypersonic/pages/product_detail.dart';
+import 'package:hypersonic/pages/singup.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true),
-      home: LogIn(),
+      home: SignUp(),
     );
   }
 }
