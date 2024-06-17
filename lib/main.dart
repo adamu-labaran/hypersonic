@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hypersonic/pages/home.dart';
 import 'package:hypersonic/pages/onboarding.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true
       ),
       
-      home: Onboarding(),
+      home: Home(),
     );
   }
 }
