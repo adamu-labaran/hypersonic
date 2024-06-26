@@ -11,6 +11,14 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   String? name, email, password;
+  // using text editing controller to store user name to firebase server
+  TextEditingController namecontroller = new TextEditingController();
+  TextEditingController mailcontroller = new TextEditingController();
+  TextEditingController passwordcontroller = new TextEditingController();
+
+  // creating global key: which will help to change the state of the respective textfield
+  final _formkey = Globalkey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +60,8 @@ class _SignUpState extends State<SignUp> {
                   color: Color(0xFFF4F5F9),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: TextField(
+                child: TextFormField(
+                    controller: namecontroller,
                     decoration: InputDecoration(
                         border: InputBorder.none, hintText: 'Full Name')),
               ),
@@ -69,7 +78,8 @@ class _SignUpState extends State<SignUp> {
                   color: Color(0xFFF4F5F9),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: TextField(
+                child: TextFormField(
+                    controller: mailcontroller,
                     decoration: InputDecoration(
                         border: InputBorder.none, hintText: 'Email')),
               ),
@@ -84,7 +94,8 @@ class _SignUpState extends State<SignUp> {
                   color: Color(0xFFF4F5F9),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: TextField(
+                child: TextFormField(
+                    controller: passwordcontroller,
                     decoration: InputDecoration(
                         border: InputBorder.none, hintText: 'Password')),
               ),
