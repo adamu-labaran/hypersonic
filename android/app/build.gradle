@@ -23,6 +23,11 @@ if (flutterVersionName == null) {
     flutterVersionName = "1.0"
 }
 
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-android'
+apply from: "$flutterRoot/packages/flutter_tools/graddle/flutter.gradle" 
+
 android {
     namespace = "com.example.hypersonic"
     compileSdk = flutter.compileSdkVersion
@@ -55,4 +60,11 @@ android {
 
 flutter {
     source = "../.."
+}
+
+
+deppendencies{
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
+    implementation("com.google.firebase:firebase-analytics")
 }

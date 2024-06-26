@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "667633084552",
+    "project_id": "hypersonic-2f5d5",
+    "storage_bucket": "hypersonic-2f5d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:667633084552:android:4afdca1cd8f9e65e97173d",
+        "android_client_info": {
+          "package_name": "com.example.hypersonic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIQ87xhnKM678HbUwRpmuNgdhoY6s4fD0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

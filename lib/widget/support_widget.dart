@@ -10,7 +10,7 @@ class AppWidget {
     return TextStyle(
         color: Colors.black54, fontSize: 20.0, fontWeight: FontWeight.w500);
   }
-
+// com.example.hypersonic
   static TextStyle semiboldTextFieldstyle() {
     return TextStyle(
         color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold);

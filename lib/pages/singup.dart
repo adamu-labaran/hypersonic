@@ -10,6 +10,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  String? name, email, password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,7 +118,10 @@ class _SignUpState extends State<SignUp> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn()),);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LogIn()),
+                      );
                     },
                     child: Text(
                       'sign In',
