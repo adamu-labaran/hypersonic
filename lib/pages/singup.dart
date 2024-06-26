@@ -153,7 +153,7 @@ class _SignUpState extends State<SignUp> {
                       // validating required form field
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'please enter your name';
+                          return 'please enter your password';
                         }
                         return null;
                       },
