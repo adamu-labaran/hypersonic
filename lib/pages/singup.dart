@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hypersonic/pages/bottomnav.dart';
 import 'package:hypersonic/pages/login.dart';
 import 'package:hypersonic/widget/support_widget.dart';
 
@@ -32,6 +33,9 @@ class _SignUpState extends State<SignUp> {
               backgroundColor: Colors.redAccent,
               content: Text('Resgistered Sucessfully',
                   style: TextStyle(fontSize: 20.0))),
+        );
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> BottomNav())
+
         );
       } on FirebaseException catch (e) {
         if (e.code == 'week-password') {
@@ -145,6 +149,7 @@ class _SignUpState extends State<SignUp> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextFormField(
+                      obscureText: true,
                       // validating required form field
                       validator: (value) {
                         if (value == null || value.isEmpty) {

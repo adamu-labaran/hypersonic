@@ -1,6 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:hypersonic/pages/Order.dart';
+import 'package:hypersonic/pages/order.dart';
 import 'package:hypersonic/pages/home.dart';
 import 'package:hypersonic/pages/profile.dart';
 
@@ -14,7 +14,7 @@ class BottomNav extends StatefulWidget {
 class _BottomNavState extends State<BottomNav> {
   late List<Widget> pages;
 
-  late Home HomePage;
+  late Home homePage;
   late Order order;
   late Profile profile;
   int currentTabIndex = 0;
@@ -23,10 +23,10 @@ class _BottomNavState extends State<BottomNav> {
 // where a uuser will get access to profile, order, profile
   @override
   void initState() {
-    HomePage = Home();
+    homePage = Home();
     order = Order();
     profile = Profile();
-    pages = [HomePage, order, profile];
+    pages = [homePage, order, profile];
     super.initState();
   }
 
